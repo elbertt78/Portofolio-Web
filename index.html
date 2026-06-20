@@ -9,15 +9,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <div class="starfield">
   <div class="glow g1"></div>
   <div class="glow g2"></div>
-  <div class="stars-layer s1"></div>
-  <div class="stars-layer s2"></div>
+  <canvas id="particleCanvas" aria-hidden="true"></canvas>
 </div>
 <div class="grain"></div>
 
@@ -56,10 +55,35 @@
     </div>
 
     <div class="hero-meta">
-      <div class="item"><div class="num">04</div><div class="label">Layanan Utama</div></div>
-      <div class="item"><div class="num">100%</div><div class="label">Dikerjakan Personal</div></div>
-      <div class="item"><div class="num">7&nbsp;Hari</div><div class="label">Konsultasi Cepat</div></div>
-      <div class="item"><div class="num">∞</div><div class="label">Revisi Wajar</div></div>
+      <div class="item"><div class="num" data-count-to="4" data-pad="2">00</div><div class="label">Layanan Utama</div></div>
+      <div class="item"><div class="num" data-count-to="100" data-suffix="%">0%</div><div class="label">Dikerjakan Personal</div></div>
+      <div class="item"><div class="num" data-count-to="7" data-suffix=" Hari">0 Hari</div><div class="label">Konsultasi Cepat</div></div>
+      <div class="item"><div class="num num-infinity">∞</div><div class="label">Revisi Wajar</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="marquee-strip" aria-hidden="true">
+  <div class="marquee-row">
+    <div class="marquee-track text">
+      <span>Website</span><span class="dot">●</span>
+      <span>UMKM</span><span class="dot">●</span>
+      <span>Undangan Digital</span><span class="dot">●</span>
+      <span>Aplikasi Android</span><span class="dot">●</span>
+      <span>Desain Responsif</span><span class="dot">●</span>
+      <span>SEO Friendly</span><span class="dot">●</span>
+      <span>Website</span><span class="dot">●</span>
+      <span>UMKM</span><span class="dot">●</span>
+      <span>Undangan Digital</span><span class="dot">●</span>
+      <span>Aplikasi Android</span><span class="dot">●</span>
+      <span>Desain Responsif</span><span class="dot">●</span>
+      <span>SEO Friendly</span><span class="dot">●</span>
+    </div>
+  </div>
+  <div class="marquee-row">
+    <div class="marquee-track badges">
+      <span class="pill">HTML5</span><span class="pill">CSS3</span><span class="pill">JavaScript</span><span class="pill">PHP</span><span class="pill">MySQL</span><span class="pill">Firebase</span><span class="pill">Figma</span><span class="pill">Android Studio</span><span class="pill">WordPress</span>
+      <span class="pill">HTML5</span><span class="pill">CSS3</span><span class="pill">JavaScript</span><span class="pill">PHP</span><span class="pill">MySQL</span><span class="pill">Firebase</span><span class="pill">Figma</span><span class="pill">Android Studio</span><span class="pill">WordPress</span>
     </div>
   </div>
 </section>
@@ -233,29 +257,87 @@
   </div>
 </section>
 
-<section class="section-pad" id="testimoni" style="background:var(--panel); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+<section class="section-pad" id="testimoni" style="background:rgba(12,19,38,0.6); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
   <div class="wrap" style="padding:0;">
     <div class="section-head reveal" style="padding:0 var(--edge);">
       <p class="eyebrow">Kata Klien</p>
       <h2>Dipercaya untuk <em>hal-hal penting</em>.</h2>
     </div>
   </div>
-  <div class="testi-wrap reveal">
-    <div class="testi">
-      <div class="stars">★★★★★</div>
-      <p>"Website usaha saya jadi terlihat jauh lebih profesional. Prosesnya juga gampang dimengerti, tidak ribet."</p>
-      <div class="who"><div class="ava">R</div><div><div class="name">Rina</div><div class="role">Pemilik UMKM</div></div></div>
+  <div class="testi-slider reveal">
+    <button class="testi-arrow prev" id="testiPrev" aria-label="Testimoni sebelumnya">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="testi-viewport">
+      <div class="testi-track" id="testiTrack">
+        <div class="testi">
+          <div class="stars">★★★★★</div>
+          <p>"Website usaha saya jadi terlihat jauh lebih profesional. Prosesnya juga gampang dimengerti, tidak ribet."</p>
+          <div class="who"><div class="ava">R</div><div><div class="name">Rina</div><div class="role">Pemilik UMKM</div></div></div>
+        </div>
+        <div class="testi">
+          <div class="stars">★★★★★</div>
+          <p>"Undangan digital pernikahan kami dipuji banyak tamu, desainnya elegan dan mudah dibagikan ke grup keluarga."</p>
+          <div class="who"><div class="ava">A</div><div><div class="name">Andra &amp; Sela</div><div class="role">Klien Undangan</div></div></div>
+        </div>
+        <div class="testi">
+          <div class="stars">★★★★★</div>
+          <p>"Aplikasi Android untuk toko kami selesai tepat waktu dan responsif dipakai. Komunikasinya juga enak."</p>
+          <div class="who"><div class="ava">D</div><div><div class="name">Dimas</div><div class="role">Pemilik Toko</div></div></div>
+        </div>
+      </div>
     </div>
-    <div class="testi">
-      <div class="stars">★★★★★</div>
-      <p>"Undangan digital pernikahan kami dipuji banyak tamu, desainnya elegan dan mudah dibagikan ke grup keluarga."</p>
-      <div class="who"><div class="ava">A</div><div><div class="name">Andra &amp; Sela</div><div class="role">Klien Undangan</div></div></div>
+    <button class="testi-arrow next" id="testiNext" aria-label="Testimoni berikutnya">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="testi-nav" id="testiDots">
+      <button class="tdot active" data-i="0" aria-label="Ke testimoni 1"></button>
+      <button class="tdot" data-i="1" aria-label="Ke testimoni 2"></button>
+      <button class="tdot" data-i="2" aria-label="Ke testimoni 3"></button>
     </div>
-    <div class="testi">
-      <div class="stars">★★★★★</div>
-      <p>"Aplikasi Android untuk toko kami selesai tepat waktu dan responsif dipakai. Komunikasinya juga enak."</p>
-      <div class="who"><div class="ava">D</div><div><div class="name">Dimas</div><div class="role">Pemilik Toko</div></div></div>
+  </div>
+
+  <div class="review-form-wrap reveal">
+    <div class="review-form-head">
+      <p class="eyebrow">Bagikan Pengalaman</p>
+      <h3>Tulis <em>ulasan</em> Anda</h3>
+      <p>Sudah pernah memakai jasa saya? Beri penilaian bintang dan ceritakan pengalaman Anda.</p>
     </div>
+    <form id="reviewForm" class="review-form" novalidate>
+      <div class="rf-row">
+        <div class="rf-field">
+          <label for="rfName">Nama</label>
+          <input type="text" id="rfName" name="rfName" placeholder="Nama Anda" autocomplete="name" required>
+        </div>
+        <div class="rf-field">
+          <label for="rfRole">Usaha / Peran (opsional)</label>
+          <input type="text" id="rfRole" name="rfRole" placeholder="mis. Pemilik UMKM">
+        </div>
+      </div>
+
+      <div class="rf-field">
+        <label id="rfRatingLabel">Penilaian Bintang</label>
+        <div class="rf-stars-row">
+          <div class="rf-stars" id="rfStars" role="radiogroup" aria-labelledby="rfRatingLabel">
+            <button type="button" class="rf-star" data-val="1" aria-label="1 bintang">★</button>
+            <button type="button" class="rf-star" data-val="2" aria-label="2 bintang">★</button>
+            <button type="button" class="rf-star" data-val="3" aria-label="3 bintang">★</button>
+            <button type="button" class="rf-star" data-val="4" aria-label="4 bintang">★</button>
+            <button type="button" class="rf-star" data-val="5" aria-label="5 bintang">★</button>
+          </div>
+          <span class="rf-rating-text" id="rfRatingText">Belum dipilih</span>
+        </div>
+        <input type="hidden" id="rfRating" name="rfRating" value="0">
+      </div>
+
+      <div class="rf-field">
+        <label for="rfComment">Komentar</label>
+        <textarea id="rfComment" name="rfComment" rows="4" placeholder="Ceritakan pengalaman Anda bekerja sama dengan saya..." required></textarea>
+      </div>
+
+      <button type="submit" class="btn solid">Kirim Ulasan</button>
+      <p class="rf-note" id="rfNote" role="status" aria-live="polite"></p>
+    </form>
   </div>
 </section>
 
@@ -267,7 +349,7 @@
       <p>Konsultasi awal tidak dipungut biaya. Sampaikan kebutuhan Anda, dan saya bantu cari bentuk terbaiknya.</p>
       <div class="cta-actions">
         <a href="https://wa.me/6285190666158?text=Halo%20Kak%2C%20saya%20ingin%20konsultasi%20proyek%20baru." target="_blank" rel="noopener" class="btn solid">Chat WhatsApp Sekarang</a>
-        <a href="mailto:elberttevann78@gmail.com?subject=Konsultasi%20Proyek&body=Halo%2C%20saya%20ingin%20menanyakan%20tentang%20jasa%20pembuatan..." class="btn">Kirim Email</a>
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=elberttevann78@gmail.com&su=Konsultasi%20Proyek&body=Halo%2C%20saya%20ingin%20menanyakan%20tentang%20jasa%20pembuatan..." target="_blank" rel="noopener" class="btn">Kirim Email</a>
       </div>
 
       <div class="contact-cards">
@@ -277,7 +359,7 @@
           </div>
           <div class="meta"><div class="label">WhatsApp</div><div class="value">0851-9066-6158</div></div>
         </a>
-        <a href="mailto:elberttevann78@gmail.com" class="contact-card">
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=elberttevann78@gmail.com" target="_blank" rel="noopener" class="contact-card">
           <div class="icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.6"/><path d="m3 6 9 7 9-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
@@ -293,7 +375,7 @@
   <div class="fmeta">© 2026 Elbert Evan — Dibuat dengan teliti, satu proyek dalam satu waktu.</div>
   <div class="flinks">
     <a href="https://wa.me/6285190666158" target="_blank" rel="noopener">WhatsApp</a>
-    <a href="mailto:elberttevann78@gmail.com">Email</a>
+    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=elberttevann78@gmail.com" target="_blank" rel="noopener">Email</a>
   </div>
 </footer>
 
@@ -301,7 +383,7 @@
   <svg width="27" height="27" viewBox="0 0 24 24" fill="none"><path d="M17.6 6.32A8.8 8.8 0 0 0 3.45 17.2L2.2 22l4.93-1.22A8.8 8.8 0 0 0 12.5 22h.02a8.8 8.8 0 0 0 5.08-15.68ZM12.52 20.2h-.01a7.3 7.3 0 0 1-3.72-1.02l-.27-.16-2.77.7.74-2.7-.18-.28a7.3 7.3 0 1 1 6.21 3.46Zm4-5.46c-.22-.11-1.3-.64-1.5-.72-.2-.07-.35-.11-.5.11-.14.22-.57.72-.7.86-.13.15-.26.16-.48.06-.22-.11-.94-.35-1.79-1.11-.66-.59-1.1-1.32-1.23-1.54-.13-.22-.01-.34.1-.45.1-.1.22-.26.33-.39.11-.13.14-.22.22-.37.07-.15.04-.28-.02-.39-.06-.11-.5-1.21-.69-1.66-.18-.43-.37-.37-.5-.38h-.43c-.15 0-.39.06-.6.28-.2.22-.78.77-.78 1.87s.8 2.17.91 2.32c.11.15 1.57 2.4 3.8 3.36.53.23.95.37 1.27.47.53.17 1.02.15 1.4.09.43-.06 1.3-.53 1.48-1.04.18-.51.18-.95.13-1.04-.05-.1-.2-.16-.42-.27Z" fill="currentColor"/></svg>
 </a>
 
-<script src="script.js" defer></script>
+<script src="script.js"></script>
 
 </body>
 </html>
